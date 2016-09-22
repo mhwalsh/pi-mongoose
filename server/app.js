@@ -1,7 +1,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 var app = express();
+
+app.use(bodyParser.json());
 
 //model
 var User = require('../models/user');
@@ -38,6 +41,30 @@ app.get('/all', function(req, res) {
       res.sendStatus(500);
     }else{
       res.send(userResults);
+    }
+  });
+});
+
+app.post('/create', function(req, res) {
+  console.log('hit the post');
+  console.log('request body', req.body);
+
+  var sentData = req.body;
+
+  var newUser = new User({
+    name: sentData.firstName, //Millie
+    username: sentData.userName, //millie
+    admin: sentData.admin
+  });
+
+  newUser.save(function(err) {
+    if(err){
+      //failed
+      console.log('error occurred:', err);
+      res.sendStatus(500);
+    }else{
+      console.log('New user saved successfully!');
+      res.sendStatus(201);
     }
   });
 });
