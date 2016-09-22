@@ -30,6 +30,18 @@ app.get('/testUser', function(req, res) {
   });
 });
 
+app.get('/all', function(req, res) {
+
+  User.find({}, function(err, userResults) {
+    if(err){
+      console.log('error occurred:', err);
+      res.sendStatus(500);
+    }else{
+      res.send(userResults);
+    }
+  });
+});
+
 var server = app.listen('3000', function() {
   var port = server.address().port;
   console.log('Im here for you! on port =', port);
