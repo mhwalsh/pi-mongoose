@@ -1,10 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
-///test
-//another test
-
 var userSchema = new Schema({
   name: String,
   username: {type: String, unique: true},
